@@ -1,0 +1,15 @@
+body {
+    background-color: #FFCA00 !important;
+}
+
+.hero {
+    height: 90dvh;
+}
+
+.nolink {
+    text-decoration: none;
+}
+
+img {
+    border-radius: 5%;
+}

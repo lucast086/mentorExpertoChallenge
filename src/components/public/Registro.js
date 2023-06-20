@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./style.css";
+import { useNavigate } from 'react-router-dom';
 
 const Registro = () => {
 	const [nombreUsuario, setNombreUsuario] = useState("");
@@ -8,7 +9,13 @@ const Registro = () => {
 	const [mensaje, setMensaje] = useState("");
 	const [alerta, setAlerta] = useState("visually-hidden alert alert-danger col-10");
 
-	const handleSubmit = (e) => {
+	const navigate= useNavigate();
+
+	const delay = ms => new Promise(
+		resolve => setTimeout(resolve, ms)
+	  );
+
+	const HandleSubmit = (e) => {
 		e.preventDefault();
 
 		if (validar(contrasena, contrasena2)) {
@@ -20,10 +27,10 @@ const Registro = () => {
 				setMensaje("El usuario ya Existe");
 				setAlerta("alert alert-danger col-10");
 			} else {
-				// Guardar usuario en localStorage
 				localStorage.setItem(nombreUsuario, JSON.stringify(usuario));
 				setMensaje("Usuario Registrado con Exito");
 				setAlerta("alert alert-success col-10");
+				timeOut();
 			}
 		} else {
 			setMensaje("Incorrecto");
@@ -33,6 +40,11 @@ const Registro = () => {
 		setContrasena("");
 		setContrasena2("");
 	};
+
+	async function timeOut() {
+		await delay(2000);
+		navigate('/login',{replace: true});
+	}
 
 	function usuarioExiste(usuario) {
 		const storedUser = localStorage.getItem(usuario);
@@ -55,7 +67,7 @@ const Registro = () => {
 				</div>
 				<div className="col-3">
 					<h2>Registro</h2>
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={HandleSubmit}>
 						<div className="mb-3">
 							<label for="username" class="form-label">
 								Email

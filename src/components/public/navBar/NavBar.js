@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
-const Navbar = ({ loggedIn }, { setLoggedIn }) => {
+const Navbar = ({ loggedIn, setLoggedIn }) => {
 	const logout = () => {
 		setLoggedIn(false);
 	};

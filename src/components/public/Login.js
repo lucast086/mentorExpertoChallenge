@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
-const Login = ({ setLoggedIn }) => {
+const Login = ({ loggedIn, setLoggedIn }) => {
 	const [nombreUsuario, setNombreUsuario] = useState("");
 	const [contrasena, setContrasena] = useState("");
 	const [mensaje, setMensaje] = useState("");
 	const [alerta, setAlerta] = useState("visually-hidden alert alert-danger col-10");
+
+	const navigate = useNavigate();
+
+	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+	async function timeOut() {
+		await delay(1000);
+		navigate("/", { replace: true });
+	}
+
+	useEffect(() => {
+		if (loggedIn) {
+			timeOut();
+		}
+	}, [loggedIn, navigate]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -18,12 +34,10 @@ const Login = ({ setLoggedIn }) => {
 				setMensaje("Correcto");
 				setAlerta("alert alert-success col-10");
 				setLoggedIn(true);
-			}
-			else {
+			} else {
 				setMensaje("Contraseña Incorrecta");
 				setAlerta("alert alert-danger col-10");
 			}
-
 		} else {
 			setMensaje("Usuario Incorrecto");
 			setAlerta("alert alert-danger col-10");
@@ -50,7 +64,7 @@ const Login = ({ setLoggedIn }) => {
 				<h2>Login</h2>
 				<form onSubmit={handleSubmit}>
 					<div className="mb-3">
-						<label for="username" class="form-label">
+						<label htmlFor="username" className="form-label">
 							Usuario
 						</label>
 						<input
@@ -66,7 +80,7 @@ const Login = ({ setLoggedIn }) => {
 						</div>
 					</div>
 					<div className="mb-3">
-						<label for="exampleInputPassword1" className="form-label">
+						<label htmlFor="exampleInputPassword1" className="form-label">
 							Contraseña
 						</label>
 						<input

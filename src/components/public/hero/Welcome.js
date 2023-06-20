@@ -8,7 +8,7 @@ const Welcome = () => {
 		<div>
 			<div className="hero row flex-lg-row-reverse align-items-center justify-content-center p-4 m-0">
 				<div className="col-10 col-sm-8 col-lg-6">
-					<img src={imagen} class="d-block mx-lg-auto img-fluid" alt="egg theme" width="700" height="500" loading="lazy" />
+					<img src={imagen} className="d-block mx-lg-auto img-fluid" alt="egg theme" width="700" height="500" loading="lazy" />
 				</div>
 				<div className="col-lg-5 col-2 col-sm-4">
 					<h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">Egg Mentor Experto Challenge</h1>

@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-const Registro = () => {
+const Registro = ({ loggedIn }) => {
 	const [nombreUsuario, setNombreUsuario] = useState("");
 	const [contrasena, setContrasena] = useState("");
 	const [contrasena2, setContrasena2] = useState("");
 	const [mensaje, setMensaje] = useState("");
 	const [alerta, setAlerta] = useState("visually-hidden alert alert-danger col-10");
 
-	const navigate= useNavigate();
+	const navigate = useNavigate();
 
-	const delay = ms => new Promise(
-		resolve => setTimeout(resolve, ms)
-	  );
+	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+	useEffect(() => {
+		if (loggedIn) {
+			timeOut2();
+		}
+	}, [loggedIn, navigate]);
 
 	const HandleSubmit = (e) => {
 		e.preventDefault();
@@ -42,8 +46,12 @@ const Registro = () => {
 	};
 
 	async function timeOut() {
-		await delay(2000);
-		navigate('/login',{replace: true});
+		await delay(1000);
+		navigate("/login", { replace: true });
+	}
+	async function timeOut2() {
+		await delay(1000);
+		navigate("/", { replace: true });
 	}
 
 	function usuarioExiste(usuario) {
@@ -69,7 +77,7 @@ const Registro = () => {
 					<h2>Registro</h2>
 					<form onSubmit={HandleSubmit}>
 						<div className="mb-3">
-							<label for="username" class="form-label">
+							<label htmlFor="username" className="form-label">
 								Email
 							</label>
 							<input
@@ -85,7 +93,7 @@ const Registro = () => {
 							</div>
 						</div>
 						<div className="mb-3">
-							<label for="exampleInputPassword1" className="form-label">
+							<label htmlFor="exampleInputPassword1" className="form-label">
 								Contraseña
 							</label>
 							<input
@@ -95,7 +103,7 @@ const Registro = () => {
 								className="form-control"
 								id="exampleInputPassword1"
 							/>
-							<label for="exampleInputPassword2" className="form-label">
+							<label htmlFor="exampleInputPassword2" className="form-label">
 								Repita la contraseña
 							</label>
 							<input
